@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mis XV - Iara</title>
-<link rel="stylesheet" href="styles.css?v=32">
+<link rel="stylesheet" href="styles.css?v=34">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500;1,600&family=Great+Vibes&family=Lato:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -102,21 +102,30 @@
       <span>22:00 HS</span>
     </div>
     <h2 class="script big">Faltan</h2>
-    <div id="countdown" class="countdown-grid">
-      <div class="time-box"><span id="days">00</span><p>Días</p></div><i>:</i>
-      <div class="time-box"><span id="hours">00</span><p>Horas</p></div><i>:</i>
-      <div class="time-box"><span id="minutes">00</span><p>Minutos</p></div><i>:</i>
-      <div class="time-box"><span id="seconds">00</span><p>Segundos</p></div>
+    <p class="count-sub">para la fiesta</p>
+    <div class="countdown-grid" data-cuenta="fiesta" data-fin="¡Llegó el gran día!">
+      <div class="time-box"><span class="cd-d">00</span><p>Días</p></div><i>:</i>
+      <div class="time-box"><span class="cd-h">00</span><p>Horas</p></div><i>:</i>
+      <div class="time-box"><span class="cd-m">00</span><p>Minutos</p></div><i>:</i>
+      <div class="time-box"><span class="cd-s">00</span><p>Segundos</p></div>
     </div>
   </section>
 
   <div class="respiro" aria-hidden="true"></div>
 
   <!-- 4b. MISA -->
-  <section class="center-section">
+  <section class="center-section misa">
     <h2 class="script big">Misa</h2>
-    <p class="small">Lunes 14 de diciembre<br>20:00 HS</p>
-    <p class="label">Parroquia<br>San Francisco Solano</p>
+    <h3>Parroquia San Francisco Solano</h3>
+    <p class="small-caps">Lunes 14 de diciembre<br>20:00 hs</p>
+    <h2 class="script big mini">Faltan</h2>
+    <p class="count-sub">para la misa</p>
+    <div class="countdown-grid" data-cuenta="misa" data-fin="¡Llegó el momento!">
+      <div class="time-box"><span class="cd-d">00</span><p>Días</p></div><i>:</i>
+      <div class="time-box"><span class="cd-h">00</span><p>Horas</p></div><i>:</i>
+      <div class="time-box"><span class="cd-m">00</span><p>Minutos</p></div><i>:</i>
+      <div class="time-box"><span class="cd-s">00</span><p>Segundos</p></div>
+    </div>
   </section>
 
   <div class="respiro" aria-hidden="true"></div>
@@ -127,7 +136,7 @@
     <div class="place-info">
       <img src="icono1.gif?v=1" alt="" class="ico-gif" aria-hidden="true">
       <h2 class="script big">Lugar del evento</h2>
-      <h3>Multieventos</h3>
+      <h3>Multieventos El Colo</h3>
       <p>Barrio Julio Abraham<br>Mz. R, Lote 6<br>Alderetes</p>
       <a id="maps-btn" class="btn solid hidden" target="_blank" rel="noopener" href="#">Ubicación</a>
     </div>
@@ -186,6 +195,6 @@
   </div>
 </main>
 
-<script src="script.js?v=26"></script>
+<script src="script.js?v=27"></script>
 </body>
 </html>
