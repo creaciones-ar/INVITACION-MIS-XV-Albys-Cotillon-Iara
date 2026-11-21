@@ -124,7 +124,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--navy);text-align:center;lin
 .controls button.on,#btn-prev,#btn-next{opacity:1}
 .controls svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .controls svg.fill{fill:currentColor;stroke:none}
-.controls .play{width:54px;height:54px;border-radius:50%;background:var(--frame);color:#fff;opacity:1;box-shadow:0 6px 14px rgba(16,38,141,.35)}
+.controls .play{width:54px;height:54px;border-radius:50%;color:#fff;opacity:1;border:2px solid #e9edf4;background:radial-gradient(circle at 50% 30%,#2a47c2,#10268d 60%,#071747);box-shadow:0 0 0 4px #aeb9c8,0 6px 14px rgba(16,38,141,.35),inset 0 -3px 5px rgba(0,0,0,.3)}
 .play svg{width:22px;height:22px}
 .play .i-play{display:block}.play .i-pause{display:none}
 .play.playing .i-play{display:none}.play.playing .i-pause{display:block}
@@ -178,8 +178,14 @@ img.ico-gif:not([src]){display:none}
 .sw-silver{background:linear-gradient(135deg,#f1f3f7,#8d9aae 55%,#d5dae3)}
 .sw-celeste{background:linear-gradient(135deg,#d6f0ff 0%,#8fd0f5 55%,#5db4e8 100%)}
 .alias{font-size:1.15rem;font-weight:600;letter-spacing:.12em}
-.btn{display:inline-block;min-width:184px;margin-top:12px;padding:15px 30px 9px calc(30px + .15em);border-radius:25px;font:600 .82rem/1.6 'Montserrat';letter-spacing:.15em;text-align:center;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:.3s;-webkit-appearance:none;appearance:none}
-.btn.solid{background:var(--frame);color:#fff;border:1.5px solid var(--frame)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-width:150px;margin-top:12px;padding:12px 24px 11px calc(24px + .15em);border-radius:999px;font-family:'Lato',sans-serif;font-weight:700;font-size:.8rem;line-height:1;letter-spacing:.15em;text-align:center;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:.3s;-webkit-appearance:none;appearance:none}
+.btn.solid{
+  margin:14px 4px 4px;color:#fff;
+  border:2px solid transparent;
+  background:linear-gradient(90deg,#071747 0%,#10268d 50%,#071747 100%) padding-box,
+             linear-gradient(90deg,#8e99ad,#ffffff 50%,#8e99ad) border-box;
+  box-shadow:0 0 0 3px #aeb9c8,0 5px 10px rgba(16,38,141,.3),
+             inset 0 2px 3px rgba(255,255,255,.22),inset 0 -3px 5px rgba(0,0,0,.35)}   /* halo plateado */
 .btn:hover{opacity:.85}
 
 /* ===== Lugar ===== */
