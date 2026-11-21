@@ -1,6 +1,7 @@
 /* ===== CONFIGURACIÓN (editar solo acá) ===== */
 const CONFIG = {
-  fecha: "December 19, 2026 22:00:00",        // sábado 19 de diciembre, 22:00
+  fecha: "December 19, 2026 22:00:00",        // FIESTA: sábado 19 de diciembre, 22:00
+  fechaMisa: "December 14, 2026 20:00:00",    // MISA: lunes 14 de diciembre, 20:00
   youtubeId: "BDwEyfgClF4",                   // canción de YouTube. Vacío = no aparece el reproductor
   inicio: 15,                                 // segundo desde el que suena la canción
   whatsapp: "5493815476047",                  // 54 + 9 + número
@@ -75,19 +76,23 @@ $('open-btn').addEventListener('click', function () {
   }, 2900);                                         // tiempo que dura la animación del sobre
 });
 
-/* ===== Cuenta regresiva ===== */
-const eventDate = new Date(CONFIG.fecha).getTime();
+/* ===== Cuentas regresivas: una para la misa y otra para la fiesta ===== */
+const fechas = { fiesta: CONFIG.fecha, misa: CONFIG.fechaMisa };
 const pad = n => String(n).padStart(2, '0');
-const tick = () => {
-  const d = eventDate - Date.now();
-  if (d < 0) { clearInterval(timer); $('countdown').textContent = '¡Llegó el gran día!'; return; }
-  $('days').textContent = pad(Math.floor(d / 864e5));
-  $('hours').textContent = pad(Math.floor(d % 864e5 / 36e5));
-  $('minutes').textContent = pad(Math.floor(d % 36e5 / 6e4));
-  $('seconds').textContent = pad(Math.floor(d % 6e4 / 1e3));
-};
-const timer = setInterval(tick, 1000);
-tick();
+document.querySelectorAll('.countdown-grid').forEach(box => {
+  const target = new Date(fechas[box.dataset.cuenta]).getTime();
+  const q = c => box.querySelector('.' + c);
+  const tick = () => {
+    const d = target - Date.now();
+    if (d < 0) { clearInterval(t); box.textContent = box.dataset.fin; return; }
+    q('cd-d').textContent = pad(Math.floor(d / 864e5));
+    q('cd-h').textContent = pad(Math.floor(d % 864e5 / 36e5));
+    q('cd-m').textContent = pad(Math.floor(d % 36e5 / 6e4));
+    q('cd-s').textContent = pad(Math.floor(d % 6e4 / 1e3));
+  };
+  const t = setInterval(tick, 1000);
+  tick();
+});
 
 /* ===== Copiar alias ===== */
 $('copy-alias').onclick = async e => {
