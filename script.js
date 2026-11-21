@@ -1,76 +1,63 @@
 /* ===== CONFIGURACIÓN (editar solo acá) ===== */
 const CONFIG = {
-  fecha: "February 21, 2027 21:00:00",
-  youtubeId: "rtOvBOTyX00",
-  whatsapp: "5491178501814", // 54 + 9 + número
-  albumUrl: "https://photos.app.goo.gl/GriDHPSV9NEhcxSk6", // álbum compartido
-  playlistUrl: "https://open.spotify.com/playlist/17ImBOYgtzpeEXi9pUZCVB?si=5138f4da72f34aaa&pt=59f5216a742de494a345b4397de74166", // LINK DE INVITACIÓN de la playlist colaborativa de Spotify (pegalo entre las comillas). Si queda vacío, la sección "Nuestra playlist" no aparece.
-  mensajeWa: "Hola! Confirmo mi asistencia a los XV de Priscila"
+  fecha: "December 19, 2026 22:00:00",        // sábado 19 de diciembre, 22:00
+  youtubeId: "BDwEyfgClF4",                   // canción de YouTube. Vacío = no aparece el reproductor
+  inicio: 0,                                  // segundo desde el que suena la canción
+  whatsapp: "5493815476047",                  // 54 + 9 + número
+  mapsUrl: "https://www.google.com/maps?q=-26.832345962524414,-65.15655517578125&z=17&hl=es",   // Vacío = no aparece el botón
+  alias: "",                                  // PENDIENTE: alias de Iara. Vacío = no aparece la sección de regalos
+  confirmarAntes: "Confirmar antes del 14 de diciembre",   // Vacío = no aparece
+  mensajeWa: "Hola! Confirmo mi asistencia a los XV de Iara"
 };
 
 const $ = id => document.getElementById(id);
 
-/* ===== Links, QR ===== */
-$('album-link').href = CONFIG.albumUrl;
+/* ===== Secciones opcionales: aparecen solo si hay dato en CONFIG ===== */
+const show = (...ids) => ids.forEach(i => $(i).classList.remove('hidden'));
 $('wa-btn').href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(CONFIG.mensajeWa)}`;
-
-/* El QR se genera en el propio celular (no depende de ningún servicio externo).
-   Si por alguna razón la librería no carga, usa el servicio online como respaldo. */
-(function makeQR() {
-  const img = $('qr');
-  try {
-    const qr = qrcode(0, 'M');           // 'M' = corrección de errores media
-    qr.addData(CONFIG.albumUrl);
-    qr.make();
-    img.src = qr.createDataURL(8, 0);    // 8 = tamaño de cada cuadradito, 0 = sin margen (el marco blanco ya lo da el CSS)
-    img.style.imageRendering = 'pixelated';
-  } catch (err) {
-    console.warn('QR local falló, uso servicio online', err);
-    img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=0&data=' + encodeURIComponent(CONFIG.albumUrl);
-  }
-})();
-
-/* ===== Playlist colaborativa: la sección solo aparece si hay link en playlistUrl ===== */
-if (CONFIG.playlistUrl) {
-  $('playlist-link').href = CONFIG.playlistUrl;
-  $('playlist-section').classList.remove('hidden');
-  $('playlist-respiro').classList.remove('hidden');
-}
+if (CONFIG.mapsUrl) { $('maps-btn').href = CONFIG.mapsUrl; show('maps-btn'); }
+if (CONFIG.alias) { $('alias').textContent = CONFIG.alias; show('gift-section', 'gift-respiro'); }
+if (CONFIG.confirmarAntes) { $('confirm-note').textContent = CONFIG.confirmarAntes; show('confirm-note'); }
+if (!CONFIG.youtubeId) $('player').classList.add('hidden');   // sin canción no hay reproductor
 
 /* ===== Música (YouTube oculto + reproductor propio) ===== */
-let yt, ticker, ready = false, wantPlay = false;
+let yt, ticker, ready = false, wantPlay = false, userPaused = false, needResume = false;
 const playBtn = $('btn-play'), bar = $('progress');
 
-const tag = document.createElement('script');
-tag.src = 'https://www.youtube.com/iframe_api';
-document.head.appendChild(tag);
+if (CONFIG.youtubeId) {
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+}
 
 window.onYouTubeIframeAPIReady = () => {
   yt = new YT.Player('yt-player', {
     height: '1', width: '1', videoId: CONFIG.youtubeId,
-    playerVars: { playsinline: 1, controls: 0, loop: 1, playlist: CONFIG.youtubeId },
+    playerVars: { playsinline: 1, controls: 0, start: CONFIG.inicio },
     events: {
       onReady: () => { ready = true; if (wantPlay) yt.playVideo(); },
       onStateChange: e => {
+        if (e.data === YT.PlayerState.ENDED && $('btn-repeat').classList.contains('on')) { yt.seekTo(CONFIG.inicio, true); yt.playVideo(); return; }
         const playing = e.data === YT.PlayerState.PLAYING;
         playBtn.classList.toggle('playing', playing);
         clearInterval(ticker);
         if (playing) ticker = setInterval(() => {
-          bar.value = (yt.getCurrentTime() / yt.getDuration()) * 100 || 0;
+          bar.value = Math.max(0, (yt.getCurrentTime() - CONFIG.inicio) / span() * 100) || 0;
         }, 500);
       }
     }
   });
 };
 const isPlaying = () => ready && yt.getPlayerState() === 1;
-playBtn.onclick = () => ready && (isPlaying() ? yt.pauseVideo() : yt.playVideo());
-bar.oninput = () => ready && yt.seekTo(yt.getDuration() * bar.value / 100, true);
-$('btn-prev').onclick = $('btn-next').onclick = () => ready && (yt.seekTo(0, true), yt.playVideo());
+const span = () => Math.max(1, yt.getDuration() - CONFIG.inicio);
+playBtn.onclick = () => { if (!ready) return; if (isPlaying()) { userPaused = true; yt.pauseVideo(); } else { userPaused = false; yt.playVideo(); } };
+bar.oninput = () => ready && yt.seekTo(CONFIG.inicio + span() * bar.value / 100, true);
+$('btn-prev').onclick = $('btn-next').onclick = () => { if (!ready) return; userPaused = false; yt.seekTo(CONFIG.inicio, true); yt.playVideo(); };
 $('btn-repeat').onclick = e => e.currentTarget.classList.toggle('on');
 $('btn-shuffle').onclick = e => e.currentTarget.classList.toggle('on');
 $('yt-player').style.cssText = 'position:fixed;left:-9999px;width:1px;height:1px';
 
-/* ===== Abrir sobre: tocar el sello -> se rompe, se abre la solapa, sube la carta, entra la invitación ===== */
+/* ===== Abrir sobre: tocar el sello -> se abre la solapa, sube la carta, entra la invitación ===== */
 $('open-btn').addEventListener('click', function () {
   const env = $('envelope'), screen = $('welcome-screen');
   if (env.classList.contains('open')) return;      // evita doble toque
@@ -117,10 +104,57 @@ $('copy-alias').onclick = async e => {
   setTimeout(() => btn.textContent = 'Copiar alias', 2000);
 };
 
+/* ===== Fotos con marco: se les quita el fondo blanco que quede AFUERA del marco =====
+   (si la foto ya es PNG transparente no cambia nada) */
+function cutout(src, img) {
+  try {
+    const w = src.naturalWidth, h = src.naturalHeight;
+    if (!w || !h) return false;
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    const x = c.getContext('2d', { willReadFrequently: true });
+    x.drawImage(src, 0, 0);
+    const d = x.getImageData(0, 0, w, h), p = d.data;
+
+    const isBg = k => p[k + 3] < 10 || (p[k] > 236 && p[k + 1] > 236 && p[k + 2] > 236);
+    const outside = new Uint8Array(w * h);
+    const stack = [];
+    const seed = (px, py) => { const i = py * w + px; if (!outside[i] && isBg(i * 4)) { outside[i] = 1; stack.push(i); } };
+    for (let i = 0; i < w; i++) { seed(i, 0); seed(i, h - 1); }
+    for (let j = 0; j < h; j++) { seed(0, j); seed(w - 1, j); }
+    while (stack.length) {
+      const i = stack.pop(), px = i % w, py = (i - px) / w;
+      if (px > 0) seed(px - 1, py);
+      if (px < w - 1) seed(px + 1, py);
+      if (py > 0) seed(px, py - 1);
+      if (py < h - 1) seed(px, py + 1);
+    }
+    for (let i = 0; i < outside.length; i++) if (outside[i]) p[i * 4 + 3] = 0;
+
+    const edge = [];
+    for (let py = 0; py < h; py++) for (let px = 0; px < w; px++) {
+      const i = py * w + px;
+      if (outside[i]) continue;
+      if ((px > 0 && outside[i - 1]) || (px < w - 1 && outside[i + 1]) || (py > 0 && outside[i - w]) || (py < h - 1 && outside[i + w])) edge.push(i);
+    }
+    edge.forEach(i => {
+      const k = i * 4, m = Math.min(p[k], p[k + 1], p[k + 2]);
+      if (m > 140) p[k + 3] = Math.max(0, Math.round(255 * (1 - (m - 140) / 96)));
+    });
+
+    x.putImageData(d, 0, 0);
+    img.src = c.toDataURL('image/png');
+    return true;
+  } catch (err) {
+    console.warn('No se pudo recortar el fondo de la foto', err);   // pasa si se abre el archivo directo (file://); en GitHub funciona
+    return false;
+  }
+}
+
 /* ===== Fotos: busca automáticamente el archivo correcto =====
    Prueba: foto3.png, "foto 3.png", foto_3.png, .jpg, .jpeg, .webp (y mayúsculas).
    Las que tienen data-framed (marco de Canva) reciben la clase "framed". */
-const V = '15';
+const V = '1';
 const NAMES = n => [`foto${n}`, `foto ${n}`, `foto_${n}`];
 const EXTS = ['png', 'jpg', 'jpeg', 'webp', 'PNG', 'JPG', 'JPEG'];
 
@@ -138,7 +172,14 @@ function loadPhoto(img) {
     if (i >= list.length) { console.warn('No se encontró la foto', img.dataset.foto); return; }
     const probe = new Image();
     const url = list[i++];
-    probe.onload = () => { img.src = url; if (framed) img.classList.add('framed'); };
+    probe.onload = () => {
+      if (framed) {
+        img.classList.add('framed');
+        if (!cutout(probe, img)) img.src = url;
+      } else {
+        img.src = url;
+      }
+    };
     probe.onerror = next;
     probe.src = url;
   };
@@ -147,10 +188,7 @@ function loadPhoto(img) {
 
 document.querySelectorAll('img[data-foto]').forEach(loadPhoto);
 
-
-/* ===== Texto de la historia: mismo alto que las dos fotos =====
-   Ajusta el tamaño de letra hasta que el texto empiece a la altura de la 1ª foto
-   y termine a la altura de la 2ª (en cualquier celular). */
+/* ===== Texto de la historia: mismo alto que las dos fotos ===== */
 function fitStory() {
   const t = document.querySelector('.story-text');
   const box = document.querySelector('.story-photos');
@@ -167,3 +205,38 @@ function fitStory() {
 document.querySelectorAll('.story-photos img').forEach(i => i.addEventListener('load', fitStory));
 window.addEventListener('resize', fitStory);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitStory);
+
+/* ===== Al volver de Google Maps u otra app, la música sigue sola ===== */
+function resumeMusic() {
+  if (!ready || !wantPlay || userPaused || isPlaying()) return;
+  yt.playVideo(); needResume = true;              // si el celular lo bloquea, se reanuda con el próximo toque
+}
+document.addEventListener('visibilitychange', () => { if (!document.hidden) setTimeout(resumeMusic, 300); });
+window.addEventListener('pageshow', () => setTimeout(resumeMusic, 300));
+document.addEventListener('touchend', e => {
+  if (!needResume || e.target.closest('.controls')) return;
+  needResume = false;
+  if (!userPaused && !isPlaying()) yt.playVideo();
+}, { passive: true });
+
+/* ===== El ícono del calendario se anima una sola vez: se reinicia al llegar a verlo ===== */
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting && e.target.getAttribute('src')) { const im = e.target; im.src = im.src.split('?')[0] + '?t=' + Date.now(); }
+  }), { threshold: 0.6 });
+  document.querySelectorAll('img[data-replay]').forEach(i => io.observe(i));
+}
+
+/* ===== Íconos animados: busca el archivo con o sin "_1" (icono-ubicacion_1.gif o icono-ubicacion.gif) ===== */
+document.querySelectorAll('img[data-icon]').forEach(img => {
+  const n = img.dataset.icon, list = [`${n}_1.gif`, `${n}.gif`, `${n}_1.GIF`, `${n}.GIF`];
+  let i = 0;
+  const next = () => {
+    if (i >= list.length) { console.warn('No se encontró el ícono', n); return; }
+    const p = new Image(), u = list[i++] + '?v=1';
+    p.onload = () => { img.src = u; };
+    p.onerror = next;
+    p.src = u;
+  };
+  next();
+});
