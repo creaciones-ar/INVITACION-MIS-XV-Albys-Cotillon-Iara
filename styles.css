@@ -242,3 +242,25 @@ body{font-family:'Montserrat',sans-serif;color:var(--navy);text-align:center;lin
 .rsvp-card .note{opacity:1;animation:noteFloat 2.4s ease-in-out infinite}
 @keyframes noteFloat{0%,100%{opacity:1;transform:translateY(0)}50%{opacity:.45;transform:translateY(-3px)}}
 @media (prefers-reduced-motion:reduce){.rsvp-card .note{animation:none}}
+
+/* ===== AJUSTES PARA IARA ===== */
+:root{--navy:#10268d;--frame:#10268d;--blue:#2a47c2}
+
+/* Bienvenida: póster de Iara en vez del video de Priscila */
+#welcome-screen{background:#dbe9f6}
+#welcome-screen::after{display:none}
+#welcome-screen::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:min(100vw,56.25vh);transform:translateX(-50%);background:url('fondo-bienvenida.jpg?v=2') center/cover no-repeat;pointer-events:none;z-index:0}
+.neon{color:var(--navy);text-shadow:0 2px 12px rgba(255,255,255,.95)}
+.welcome-sub,.welcome-hint{color:var(--navy);font-weight:600;text-shadow:0 0 8px rgba(255,255,255,.95)}
+
+/* Dress code celeste y plateado */
+.sw-celeste{background:linear-gradient(135deg,#d6f0ff 0%,#8fd0f5 55%,#5db4e8 100%)}
+
+/* Texto de la historia y cierre: letra recta, como en tu referencia */
+.story-text,.closing p:not(.script){font-style:normal;font-weight:500}
+
+/* Foto del lugar: el blanco del borde no se nota */
+.place-photo{mix-blend-mode:multiply;filter:none}
+
+/* Si falta algún ícono animado, no deja un hueco */
+img.ico-gif:not([src]){display:none}
