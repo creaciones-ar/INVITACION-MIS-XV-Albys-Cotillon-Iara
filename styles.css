@@ -230,3 +230,11 @@ img.ico-gif:not([src]){display:none}
 .rsvp-card .note{opacity:1;animation:noteFloat 2.4s ease-in-out infinite}
 @keyframes noteFloat{0%,100%{opacity:1;transform:translateY(0)}50%{opacity:.45;transform:translateY(-3px)}}
 @media (prefers-reduced-motion:reduce){.rsvp-card .note{animation:none}}
+
+/* ===== Misa ===== */
+.misa h3{font-weight:600;font-size:1rem;letter-spacing:.04em}
+
+/* ===== Textos de las dos cuentas regresivas ===== */
+.count-sub{font-size:.72rem;letter-spacing:.3em;padding-left:.3em;text-transform:uppercase;font-weight:600;margin:-6px 0 14px}
+.misa .script.big.mini{font-size:2rem;margin-top:8px}
+.misa .count-sub{margin:-4px 0 6px}
