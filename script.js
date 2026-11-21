@@ -2,10 +2,10 @@
 const CONFIG = {
   fecha: "December 19, 2026 22:00:00",        // sábado 19 de diciembre, 22:00
   youtubeId: "BDwEyfgClF4",                   // canción de YouTube. Vacío = no aparece el reproductor
-  inicio: 15,                                  // segundo desde el que suena la canción
+  inicio: 15,                                 // segundo desde el que suena la canción
   whatsapp: "5493815476047",                  // 54 + 9 + número
   mapsUrl: "https://www.google.com/maps?q=-26.832345962524414,-65.15655517578125&z=17&hl=es",   // Vacío = no aparece el botón
-  alias: "",                                  // PENDIENTE: alias de Iara. Vacío = no aparece la sección de regalos
+  alias: "iaruu.021",                                // PENDIENTE: alias de Iara. Vacío = no aparece la sección de regalos
   confirmarAntes: "Confirmar antes del 14 de diciembre",   // Vacío = no aparece
   mensajeWa: "Hola! Confirmo mi asistencia a los XV de Iara"
 };
