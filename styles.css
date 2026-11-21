@@ -1,8 +1,8 @@
-/* VERSION 9 - botones centrados y más grandes | VERSION 8 - Priscila, playlist, frase final más grande */
+/* VERSION IARA 31 - plantilla Priscila con azul #10268d, dress code celeste y plateado */
 :root{
-  --navy:#1b365d;--blue:#4a90c8;--sky:#dbe9f7;--ice:#f4f8fc;--silver:#8d9aae;
+  --navy:#10268d;--blue:#2a47c2;--sky:#dbe9f7;--ice:#f4f8fc;--silver:#8d9aae;
   --base:#f6f8fb;
-  --frame:#213966;   /* color exacto de los marcos de las fotos (también de los botones) */
+  --frame:#10268d;   /* color de los botones y del reproductor */
   --col:min(100vw,480px);          /* ancho real de la columna */
   --sec-y:40px;      /* espacio vertical de cada sección */
   --respiro:150px;   /* alto de cada separación con degradé */
@@ -60,10 +60,8 @@ body{font-family:'Montserrat',sans-serif;color:var(--navy);text-align:center;lin
   background:radial-gradient(circle at 32% 28%,#ffffff 0,#eef1f6 20%,#b5bfce 55%,#7f8b9f 100%);
   box-shadow:0 5px 12px rgba(10,25,60,.5),inset 0 2px 3px rgba(255,255,255,.9),inset 0 -4px 6px rgba(60,75,100,.45);
   transition:transform .45s ease,opacity .45s ease}
-/* La P: letra cursiva (igual que Priscila del final), chica para que quede dentro del sello */
 .seal span{font-family:'Great Vibes',cursive;font-weight:400;font-size:1.5rem;line-height:1;color:#4f5c75;text-shadow:0 1px 0 rgba(255,255,255,.85),0 -1px 0 rgba(40,55,80,.25);display:block;transform:translate(0,1px);pointer-events:none}
 .seal::before{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(255,255,255,.9);animation:ring 1.8s ease-out infinite;pointer-events:none}
-/* borde grabado del sello */
 .seal::after{content:"";position:absolute;inset:11%;border-radius:50%;border:1.5px solid rgba(70,85,110,.45);box-shadow:inset 0 2px 4px rgba(60,75,100,.35),0 1px 0 rgba(255,255,255,.7);pointer-events:none}
 @keyframes ring{from{transform:scale(.85);opacity:.9}to{transform:scale(1.5);opacity:0}}
 
@@ -82,9 +80,8 @@ body{font-family:'Montserrat',sans-serif;color:var(--navy);text-align:center;lin
 @keyframes pulse{50%{opacity:.45}}
 
 /* ===== Columna central + fondo continuo ===== */
-#main-content{max-width:480px;margin:0 auto;overflow:hidden;box-shadow:0 0 40px rgba(27,54,93,.15)}
+#main-content{max-width:480px;margin:0 auto;overflow:hidden;box-shadow:0 0 40px rgba(16,38,141,.15)}
 
-/* Base: color liso + "manchas" de acuarela suaves para que el centro no se vea vacío */
 .page{
   position:relative;max-width:480px;margin:0 auto;overflow:hidden;isolation:isolate;
   background:
@@ -94,8 +91,6 @@ body{font-family:'Montserrat',sans-serif;color:var(--navy);text-align:center;lin
     url('fondo-arriba-2.webp') top center/100% auto no-repeat,
     var(--base);
 }
-/* Fondo de abajo: aparece con degradé (ya no hay corte duro).
-   Si todavía ves un borde, subí los dos porcentajes del mask (28% / 62%). */
 .page::after{
   content:"";position:absolute;left:0;right:0;bottom:0;z-index:-1;pointer-events:none;
   height:calc(var(--col)*1.3);
@@ -105,8 +100,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--navy);text-align:center;lin
 }
 .cover,.story-section,.date-section,.center-section,.place-section,.duo,.rsvp,.closing{background:none}
 
-/* ===== Respiro entre secciones: aire + degradé de acuarela (sin líneas) =====
-   Para más o menos espacio cambiá --respiro. Para que se note menos/más la acuarela, cambiá opacity. */
+/* ===== Respiro entre secciones: aire + degradé de acuarela ===== */
 .respiro{position:relative;height:var(--respiro);margin:-20px 0;pointer-events:none}
 .respiro::before{
   content:"";position:absolute;inset:0;
@@ -115,13 +109,12 @@ body{font-family:'Montserrat',sans-serif;color:var(--navy);text-align:center;lin
   -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 38%,#000 62%,transparent 100%);
           mask-image:linear-gradient(to bottom,transparent 0,#000 38%,#000 62%,transparent 100%);
 }
-/* alternan para que no se repita siempre el mismo recorte */
 .respiro:nth-of-type(even)::before{background-position:center 15%;transform:scaleX(-1)}
 .respiro:nth-of-type(3n)::before{background-position:center 85%}
 
 /* ===== Portada ===== */
 .cover{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:0;padding:90px 24px 6px}
-.tiara{width:min(40%,190px);height:auto;margin:0 auto 2px}
+.tiara{width:min(40%,190px);height:auto;margin:0 auto 2px;mix-blend-mode:multiply}
 .cover-name{width:100%;display:flex;justify-content:center;margin:6px 0 12px}
 .cover-name img{width:min(88%,380px);height:auto;display:block}
 .player{width:100%;max-width:300px;margin:10px 0 18px}
@@ -131,28 +124,25 @@ body{font-family:'Montserrat',sans-serif;color:var(--navy);text-align:center;lin
 .controls button.on,#btn-prev,#btn-next{opacity:1}
 .controls svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .controls svg.fill{fill:currentColor;stroke:none}
-.controls .play{width:54px;height:54px;border-radius:50%;background:var(--frame);color:#fff;opacity:1;box-shadow:0 6px 14px rgba(33,57,102,.35)}
+.controls .play{width:54px;height:54px;border-radius:50%;background:var(--frame);color:#fff;opacity:1;box-shadow:0 6px 14px rgba(16,38,141,.35)}
 .play svg{width:22px;height:22px}
 .play .i-play{display:block}.play .i-pause{display:none}
 .play.playing .i-play{display:none}.play.playing .i-pause{display:block}
 .mis15{margin-top:8px;margin-bottom:24px;display:flex;justify-content:center}
 .mis15 img{width:min(86%,360px);height:auto;display:block;margin:0 auto}
-
-/* Si exportás el nombre / "Mis 15 años" de Canva SIN fondo transparente (fondo blanco),
-   esto hace desaparecer el blanco. Si ya son PNG transparentes no cambia nada. */
 .cover-name img,.mis15 img{mix-blend-mode:multiply}
 
 /* ===== Texto + fotos ===== */
 .story-section{display:flex;align-items:center;gap:6px;padding:var(--sec-y) 4px var(--sec-y) 18px}
-.story-text{flex:1 1 0;min-width:0;align-self:center;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:1.15rem;line-height:1.55;color:var(--navy)} /* el tamaño real lo calcula script.js para que el texto mida lo mismo que las fotos */
+.story-text{flex:1 1 0;min-width:0;align-self:center;text-align:center;font-family:'Cormorant Garamond',serif;font-style:normal;font-weight:500;font-size:1.15rem;line-height:1.55;color:var(--navy)} /* el tamaño real lo calcula script.js */
 .story-photos{flex:0 0 53%;display:flex;flex-direction:column;align-items:flex-end}
 
-.polaroid{display:block;width:100%;height:auto;border:6px solid var(--navy);box-shadow:0 8px 18px rgba(27,54,93,.35)}
+.polaroid{display:block;width:100%;height:auto;border:6px solid var(--navy);box-shadow:0 8px 18px rgba(16,38,141,.35)}
 .p1{transform:rotate(3deg);position:relative;z-index:1}
 .p2{transform:rotate(-3deg);margin-top:-14px;position:relative;z-index:2}
 
 /* Foto con marco hecho en Canva (PNG transparente, ya viene inclinada) */
-.polaroid.framed{border:0;background:none;box-shadow:none;transform:none;filter:drop-shadow(0 8px 14px rgba(27,54,93,.28))}
+.polaroid.framed{border:0;background:none;box-shadow:none;transform:none;filter:drop-shadow(0 8px 14px rgba(16,38,141,.28))}
 .story-photos .polaroid.framed.p1{transform:translateX(4px);position:relative;z-index:1}
 .story-photos .polaroid.framed.p2{margin-top:-34px;transform:translateX(-8px);position:relative;z-index:2}
 
@@ -164,7 +154,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--navy);text-align:center;lin
 .date-row>span:first-child{text-align:right;margin-right:-.18em}
 .date-row>span:last-child{text-align:left}
 .date-day{display:flex;flex-direction:column;align-items:center;padding:4px 22px;border-left:2px solid var(--navy);border-right:2px solid var(--navy)}
-.date-day b{font-weight:300;font-size:4rem;line-height:1.05;color:#5a7090}
+.date-day b{font-weight:300;font-size:4rem;line-height:1.05;color:var(--blue)}
 .date-day small{font-size:.65rem;letter-spacing:.25em;padding-left:.25em}
 .date-section .script.big{color:var(--navy);margin-bottom:10px}
 .countdown-grid{display:flex;justify-content:center;align-items:flex-start;gap:10px}
@@ -176,7 +166,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--navy);text-align:center;lin
 /* ===== Secciones interiores ===== */
 .ico-gif{height:80px!important;width:auto!important;max-width:70%;object-fit:contain;display:block;margin:0 auto 6px;background:none}
 .place-info .ico-gif{height:68px!important;max-width:90%}
-.ico{width:46px;height:46px;fill:none;stroke:var(--navy);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:8px}
+img.ico-gif:not([src]){display:none}
 .center-section{position:relative;padding:var(--sec-y) 22px;display:flex;flex-direction:column;align-items:center;gap:10px}
 .center-section .script.big{font-size:2.3rem;color:var(--navy)}
 .label{font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;font-weight:600}
@@ -184,24 +174,23 @@ body{font-family:'Montserrat',sans-serif;color:var(--navy);text-align:center;lin
 .small-caps{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;max-width:280px;margin-top:6px}
 .note{font-size:.62rem;letter-spacing:.08em;opacity:.8}
 .swatches{display:flex;gap:18px;margin:6px 0 2px}
-.swatches i{width:36px;height:36px;border-radius:50%;box-shadow:0 2px 6px rgba(27,54,93,.25),inset 0 0 0 1px rgba(27,54,93,.12)}
-.sw-white{background:#fff}.sw-silver{background:linear-gradient(135deg,#f1f3f7,#8d9aae 55%,#d5dae3)}.sw-blue{background:#1c4aa0}
+.swatches i{width:36px;height:36px;border-radius:50%;box-shadow:0 2px 6px rgba(16,38,141,.25),inset 0 0 0 1px rgba(16,38,141,.12)}
+.sw-silver{background:linear-gradient(135deg,#f1f3f7,#8d9aae 55%,#d5dae3)}
+.sw-celeste{background:linear-gradient(135deg,#d6f0ff 0%,#8fd0f5 55%,#5db4e8 100%)}
 .alias{font-size:1.15rem;font-weight:600;letter-spacing:.12em}
-.btn{display:inline-block;min-width:184px;margin-top:12px;padding:15px 30px 9px calc(30px + .15em);border-radius:25px;font:600 .82rem/1.6 'Montserrat';letter-spacing:.15em;text-align:center;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:.3s;-webkit-appearance:none;appearance:none} /* el padding de arriba/abajo y el extra a la izquierda compensan el espacio que deja el letter-spacing, para que el texto quede bien centrado */
+.btn{display:inline-block;min-width:184px;margin-top:12px;padding:15px 30px 9px calc(30px + .15em);border-radius:25px;font:600 .82rem/1.6 'Montserrat';letter-spacing:.15em;text-align:center;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:.3s;-webkit-appearance:none;appearance:none}
 .btn.solid{background:var(--frame);color:#fff;border:1.5px solid var(--frame)}
-.btn.outline{background:var(--frame);color:#fff;border:1.5px solid var(--frame)} /* igual que .solid: todos los botones son iguales */
 .btn:hover{opacity:.85}
-.qr{background:#fff;padding:10px;border:1.5px solid var(--navy);border-radius:12px;margin-top:6px}
 
 /* ===== Lugar ===== */
 .place-section{display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:calc(var(--sec-y)*.6) 0}
-.place-photo{width:100%;height:auto;display:block;object-fit:contain;object-position:left center;filter:drop-shadow(0 6px 12px rgba(27,54,93,.2))}
+.place-photo{width:100%;height:auto;display:block;object-fit:contain;object-position:left center;mix-blend-mode:multiply}
 .place-info{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 10px}
 .place-info .script.big{font-size:1.9rem;line-height:1.1;color:var(--navy)}
 .place-info h3{font-weight:600;font-size:.95rem}
 .place-info p{font-size:.78rem}
 
-/* ===== Dos fotos finales (fluyen, sin altura fija) ===== */
+/* ===== Dos fotos finales ===== */
 .duo{position:relative;display:flex;flex-direction:column;padding:calc(var(--sec-y)*.6) 0 var(--sec-y);overflow:hidden}
 .duo .polaroid{position:relative;width:62%}
 .duo .d1{align-self:flex-start;margin-left:2%;z-index:1}
@@ -210,7 +199,6 @@ body{font-family:'Montserrat',sans-serif;color:var(--navy);text-align:center;lin
 .duo .polaroid:not(.framed).d2{transform:rotate(3deg);margin-top:10px}
 
 /* ===== Confirmación y cierre ===== */
-/* El fondo de mariposas se funde arriba y abajo (sin corte duro) */
 .rsvp{position:relative;isolation:isolate;min-height:640px;display:flex;align-items:center;justify-content:center;padding:50px 18px;overflow:hidden}
 .rsvp::before{
   content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
@@ -221,7 +209,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--navy);text-align:center;lin
 .rsvp-card{width:100%;background:rgba(255,255,255,.6);border-radius:10px;padding:34px 18px;display:flex;flex-direction:column;align-items:center;gap:10px;backdrop-filter:blur(2px)}
 .rsvp-card .script.big{font-size:2.2rem;line-height:1.15;color:var(--navy)}
 .closing{padding:30px 26px 150px;display:flex;flex-direction:column;gap:18px;font-size:1.2rem;line-height:1.7}
-.closing p:not(.script){font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:1.35rem;line-height:1.5;color:var(--navy)}
+.closing p:not(.script){font-family:'Cormorant Garamond',serif;font-style:normal;font-weight:500;font-size:1.35rem;line-height:1.5;color:var(--navy)}
 .closing .script.big{font-size:2.8rem;color:var(--navy)}
 
 /* ===== Decoraciones sueltas ===== */
@@ -231,36 +219,8 @@ body{font-family:'Montserrat',sans-serif;color:var(--navy);text-align:center;lin
 .deco-dress{right:-44px;top:-26px;width:150px}
 .deco-regalo{left:-48px;top:-46px;width:110px}
 .deco-duo{right:-30px;top:-10px;width:300px}
-.deco-qr{left:-40px;bottom:-6px;width:150px;transform:scaleX(-1)}
 
-/* ===== Sugerencia de canción ===== */
-.song-input{width:100%;max-width:300px;margin-top:6px;padding:12px 18px;border:1.5px solid var(--frame);border-radius:25px;background:rgba(255,255,255,.85);font:400 16px 'Montserrat',sans-serif;color:var(--navy);text-align:center;outline:none}
-.song-input::placeholder{color:#7d8da6}
-.song-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(74,144,200,.2)}
-
-/* ===== Aviso "Confirmar antes del 1 de febrero": flota y titila como "Toca el sello para abrir" ===== */
+/* ===== Aviso "Confirmar antes del 14 de diciembre": flota y titila ===== */
 .rsvp-card .note{opacity:1;animation:noteFloat 2.4s ease-in-out infinite}
 @keyframes noteFloat{0%,100%{opacity:1;transform:translateY(0)}50%{opacity:.45;transform:translateY(-3px)}}
 @media (prefers-reduced-motion:reduce){.rsvp-card .note{animation:none}}
-
-/* ===== AJUSTES PARA IARA ===== */
-:root{--navy:#10268d;--frame:#10268d;--blue:#2a47c2}
-
-/* Bienvenida: póster de Iara en vez del video de Priscila */
-#welcome-screen{background:#dbe9f6}
-#welcome-screen::after{display:none}
-#welcome-screen::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:min(100vw,56.25vh);transform:translateX(-50%);background:url('fondo-bienvenida.jpg?v=2') center/cover no-repeat;pointer-events:none;z-index:0}
-.neon{color:var(--navy);text-shadow:0 2px 12px rgba(255,255,255,.95)}
-.welcome-sub,.welcome-hint{color:var(--navy);font-weight:600;text-shadow:0 0 8px rgba(255,255,255,.95)}
-
-/* Dress code celeste y plateado */
-.sw-celeste{background:linear-gradient(135deg,#d6f0ff 0%,#8fd0f5 55%,#5db4e8 100%)}
-
-/* Texto de la historia y cierre: letra recta, como en tu referencia */
-.story-text,.closing p:not(.script){font-style:normal;font-weight:500}
-
-/* Foto del lugar: el blanco del borde no se nota */
-.place-photo{mix-blend-mode:multiply;filter:none}
-
-/* Si falta algún ícono animado, no deja un hueco */
-img.ico-gif:not([src]){display:none}
