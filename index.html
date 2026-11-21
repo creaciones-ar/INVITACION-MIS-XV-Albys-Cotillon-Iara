@@ -24,8 +24,9 @@
   </defs>
 </svg>
 
-<!-- 1. SOBRE (el fondo de bienvenida se define en styles.css) -->
+<!-- 1. SOBRE -->
 <div id="welcome-screen">
+  <video class="bg-video" src="fondo-bienvenida.mp4" poster="poster-bienvenida.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
   <div class="welcome-content">
     <h1 class="neon">Iara</h1>
     <p class="welcome-sub">Mis quince años</p>
@@ -94,7 +95,6 @@
   <!-- 4. FECHA + CUENTA REGRESIVA (19 de diciembre de 2026 es SÁBADO) -->
   <section class="date-section">
     <img src="deco-flores.webp" alt="" class="deco deco-date" aria-hidden="true">
-    <img data-icon="icono-calendario" alt="" class="ico-gif" aria-hidden="true" data-replay>
     <p class="date-month">Diciembre</p>
     <div class="date-row">
       <span>SÁBADO</span>
@@ -116,7 +116,7 @@
   <section class="place-section">
     <img src="foto3.png" data-foto="3" alt="Iara" class="place-photo">
     <div class="place-info">
-      <img data-icon="icono-ubicacion" alt="" class="ico-gif" aria-hidden="true">
+      <img src="icono1.gif?v=1" alt="" class="ico-gif" aria-hidden="true">
       <h2 class="script big">Lugar del evento</h2>
       <h3>Barrio Julio Abraham</h3>
       <p>Mz. R, Lote 6<br>Alderetes</p>
@@ -129,7 +129,7 @@
   <!-- 6. DRESS CODE -->
   <section class="center-section">
     <img src="deco-mariposas.webp" alt="" class="deco deco-dress" aria-hidden="true">
-    <img data-icon="icono-vestimenta" alt="" class="ico-gif" aria-hidden="true">
+    <img src="icono2.gif?v=1" alt="" class="ico-gif" aria-hidden="true">
     <h2 class="script big">Dress Code</h2>
     <p class="small-caps">Se reservan los colores<br>celeste y plateado<br>para la cumpleañera</p>
     <div class="swatches"><i class="sw-silver"></i><i class="sw-celeste"></i></div>
@@ -141,7 +141,7 @@
   <!-- 7. REGALO (aparece solo si hay alias en script.js) -->
   <section id="gift-section" class="center-section hidden">
     <img src="deco-petalos.webp" alt="" class="deco deco-regalo" aria-hidden="true">
-    <img data-icon="icono-regalos" alt="" class="ico-gif" aria-hidden="true">
+    <img src="icono3.gif?v=1" alt="" class="ico-gif" aria-hidden="true">
     <h2 class="script big">¡El mejor regalo es tu presencia!</h2>
     <p class="small">Pero si deseas hacerme un obsequio, puedes hacerlo mediante el siguiente</p>
     <p class="label">Alias:</p>
@@ -161,7 +161,6 @@
   <!-- 9. CONFIRMACIÓN -->
   <section class="rsvp">
     <div class="rsvp-card">
-      <img data-icon="icono-confirmar" alt="" class="ico-gif" aria-hidden="true">
       <h2 class="script big">Confirmación de asistencia</h2>
       <p class="small">¡Te espero para compartir la alegría de este gran día!</p>
       <a id="wa-btn" class="btn solid" target="_blank" rel="noopener" href="#">Confirmar</a>
